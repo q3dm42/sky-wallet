@@ -26,7 +26,11 @@ function RegisterPage() {
               <span>Пароль</span>
               <input name="password" type="password" placeholder="Пароль" />
             </label>
-            <button type="button" className="primary-button" onClick={handleRegister}>
+            <button
+              type="button"
+              className="primary-button"
+              onClick={handleRegister}
+            >
               Зарегистрироваться
             </button>
           </form>
@@ -41,4 +45,3 @@ function RegisterPage() {
 }
 
 export default RegisterPage;
-

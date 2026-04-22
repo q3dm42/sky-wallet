@@ -22,7 +22,11 @@ function LoginPage() {
               <span>Пароль</span>
               <input name="password" type="password" placeholder="Пароль" />
             </label>
-            <button type="button" className="primary-button" onClick={handleLogin}>
+            <button
+              type="button"
+              className="primary-button"
+              onClick={handleLogin}
+            >
               Войти
             </button>
           </form>
@@ -37,4 +41,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-
