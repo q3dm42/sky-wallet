@@ -9,10 +9,6 @@ function DashboardPage() {
       <AppHeader />
       <main className="page-content page-content--dashboard">
         <h1 className="page-title">Мои расходы</h1>
-        <div className="dashboard-summary">
-          <span>Общая сумма</span>
-          <strong>0 ₽</strong>
-        </div>
         <div className="dashboard-grid">
           <ExpenseTable transactions={mockTransactions} />
           <NewExpenseForm />
