@@ -313,12 +313,15 @@ button {
   flex: 0 0 auto;
 }
 
-.chip:first-child,
 .chip--active,
 .chip:focus-visible {
   background: #ece3ff;
   color: #7a49f5;
   outline: 0;
+}
+
+.chip:disabled {
+  cursor: default;
 }
 
 .primary-button {
@@ -510,6 +513,11 @@ button {
 
 .form-error--center {
   margin: 2px 0 0;
+  text-align: center;
+}
+
+.table-empty {
+  color: #7a7a85;
   text-align: center;
 }
 

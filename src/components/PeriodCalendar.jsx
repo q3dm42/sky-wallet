@@ -10,12 +10,19 @@ function toInputDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-function PeriodCalendar() {
+function PeriodCalendar({ startDate, endDate, onRangeChange, disabled = false }) {
   const today = toInputDate(new Date());
-  const [startDate, setStartDate] = useState(today);
-  const [endDate, setEndDate] = useState(today);
+  const currentStartDate = startDate || today;
+  const currentEndDate = endDate || today;
   const startInputRef = useRef(null);
   const endInputRef = useRef(null);
+
+  const handleDateChange = (name, value) => {
+    onRangeChange({
+      start: name === 'start' ? value : currentStartDate,
+      end: name === 'end' ? value : currentEndDate,
+    });
+  };
 
   const openCalendar = (inputRef) => {
     if (typeof inputRef.current?.showPicker === 'function') {
@@ -35,18 +42,20 @@ function PeriodCalendar() {
             Начальная дата
             <span className="date-field">
               <input
-                value={formatDate(startDate)}
+                value={formatDate(currentStartDate)}
                 readOnly
                 onClick={() => openCalendar(startInputRef)}
+                disabled={disabled}
               />
               <input
                 ref={startInputRef}
                 className="date-field__native"
                 name="start"
                 type="date"
-                value={startDate}
-                onChange={(event) => setStartDate(event.target.value)}
+                value={currentStartDate}
+                onChange={(event) => handleDateChange('start', event.target.value)}
                 tabIndex={-1}
+                disabled={disabled}
               />
             </span>
           </label>
@@ -54,18 +63,20 @@ function PeriodCalendar() {
             Конечная дата
             <span className="date-field">
               <input
-                value={formatDate(endDate)}
+                value={formatDate(currentEndDate)}
                 readOnly
                 onClick={() => openCalendar(endInputRef)}
+                disabled={disabled}
               />
               <input
                 ref={endInputRef}
                 className="date-field__native"
                 name="end"
                 type="date"
-                value={endDate}
-                onChange={(event) => setEndDate(event.target.value)}
+                value={currentEndDate}
+                onChange={(event) => handleDateChange('end', event.target.value)}
                 tabIndex={-1}
+                disabled={disabled}
               />
             </span>
           </label>

@@ -1,27 +1,40 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
+import { getToken, getUser, removeToken, removeUser, saveToken, saveUser } from '../utils/storage';
 
 const AuthContext = createContext(null);
-const AUTH_STORAGE_KEY = 'sky-wallet-auth';
 
 export function AuthProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return localStorage.getItem(AUTH_STORAGE_KEY) === 'true';
-  });
+  const [token, setToken] = useState(getToken);
+  const [user, setUser] = useState(getUser);
 
-  const login = () => {
-    localStorage.setItem(AUTH_STORAGE_KEY, 'true');
-    setIsLoggedIn(true);
+  const login = (payload) => {
+    saveToken(payload.token);
+    saveUser(payload.user);
+    setToken(payload.token);
+    setUser(payload.user);
   };
 
   const logout = () => {
-    localStorage.removeItem(AUTH_STORAGE_KEY);
-    setIsLoggedIn(false);
+    removeToken();
+    removeUser();
+    setToken(null);
+    setUser(null);
   };
 
+  const value = useMemo(
+    () => ({
+      token,
+      user,
+      isLoggedIn: Boolean(token),
+      isAuthenticated: Boolean(token),
+      login,
+      logout,
+    }),
+    [token, user]
+  );
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
   );
 }
 
