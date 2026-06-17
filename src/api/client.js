@@ -96,13 +96,6 @@ export const api = {
       headers: config.headers,
     }),
 
-  patch: (path, data, config = {}) =>
-    request('PATCH', path, {
-      params: config.params,
-      data,
-      headers: config.headers,
-    }),
-
   delete: (path, config = {}) =>
     request('DELETE', path, {
       params: config.params,

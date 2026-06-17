@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { CATEGORY_OPTIONS } from '../data/categoryOptions';
 import { formatCurrency, formatDate } from '../utils/formatters';
 
@@ -7,11 +8,20 @@ const categoryLabels = CATEGORY_OPTIONS.reduce((acc, option) => {
 }, {});
 
 function ExpenseTable({ transactions, onDelete }) {
-  const handleDelete = (id) => {
+  const [deletingId, setDeletingId] = useState(null);
+
+  const handleDelete = async (id) => {
     const isConfirmed = window.confirm('Удалить эту транзакцию?');
 
-    if (isConfirmed) {
-      onDelete(id);
+    if (!isConfirmed) {
+      return;
+    }
+
+    try {
+      setDeletingId(id);
+      await onDelete(id);
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -42,6 +52,7 @@ function ExpenseTable({ transactions, onDelete }) {
                       type="button"
                       className="delete-btn"
                       onClick={() => handleDelete(item.id)}
+                      disabled={deletingId === item.id}
                       aria-label={`Удалить расход ${item.description}`}
                       title="Удалить транзакцию"
                     >

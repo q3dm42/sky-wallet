@@ -4,7 +4,7 @@
     "browser": true,
     "es2024": true
   },
-  "ignorePatterns": ["Skypro-Wallet-done/"],
+  "ignorePatterns": ["dist/", "Skypro-Wallet-done/"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
