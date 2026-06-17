@@ -21,7 +21,7 @@ function AnalysisPage() {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [periodError, setPeriodError] = useState('');
   const [isPeriodLoading, setIsPeriodLoading] = useState(false);
-  const { isLoading, error } = useTransactions();
+  const { transactions, isLoading, error } = useTransactions();
 
   useEffect(() => {
     const loadPeriodTransactions = async () => {
@@ -57,7 +57,14 @@ function AnalysisPage() {
   );
 
   const total = chartData.reduce((sum, item) => sum + item.value, 0);
-  const subtitle = filteredTransactions.length
+  const availableDates = useMemo(
+    () => [...new Set(transactions.map((item) => toInputDate(new Date(item.date))).filter(Boolean))],
+    [transactions]
+  );
+
+  const subtitle = !range.end
+    ? 'Выберите конечную дату периода вторым кликом'
+    : filteredTransactions.length
     ? `Расходы за период ${formatDateRange(range.start, range.end)}`
     : `За период ${formatDateRange(range.start, range.end)} расходов пока нет`;
 
@@ -74,6 +81,7 @@ function AnalysisPage() {
             startDate={range.start}
             endDate={range.end}
             onRangeChange={setRange}
+            availableDates={availableDates}
             disabled={isPeriodLoading}
           />
           <ExpensesChart

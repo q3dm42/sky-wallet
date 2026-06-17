@@ -414,55 +414,93 @@ button {
   padding: 20px 18px 18px;
 }
 
-.calendar-content {
-  display: grid;
-  gap: 16px;
+.calendar-scroll {
+  max-height: 560px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 6px;
 }
 
-.calendar-row {
-  display: grid;
-  gap: 16px;
+.calendar-month + .calendar-month {
+  margin-top: 20px;
 }
 
-.calendar-row label {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  color: #4b4b55;
-  font-size: 12px;
+.calendar-month__title {
+  margin: 0 0 10px;
+  font-size: 15px;
   font-weight: 700;
+  text-transform: capitalize;
+}
+
+.calendar-weekdays,
+.calendar-grid--month {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.calendar-weekdays {
+  margin-bottom: 10px;
+  color: #b8b8bf;
+  font-size: 10px;
+  text-align: center;
+}
+
+.calendar-day {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto;
+  border: 0;
+  border-radius: 999px;
+  background: #f4f4f7;
+  color: #666671;
+  font-size: 11px;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.calendar-day:disabled {
+  cursor: default;
+}
+
+.calendar-day--empty {
+  visibility: hidden;
+}
+
+.calendar-day--range {
+  border-radius: 12px;
+  background: #ede5ff;
+  color: #6f3ef6;
+}
+
+.calendar-day--selected {
+  background: #7a49f5;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(122, 73, 245, 0.28);
+}
+
+.calendar-day--start,
+.calendar-day--end {
+  border-radius: 999px;
+}
+
+.calendar-day__dot {
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: translateX(-50%);
 }
 
 .calendar-hint {
   display: grid;
   gap: 6px;
-  margin-top: 0;
+  margin-top: 16px;
   color: #8a8a95;
   font-size: 11px;
-}
-
-.calendar-footer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.calendar-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 7px 10px;
-  border-radius: 999px;
-  background: #f1f1f4;
-  color: #5e5e65;
-  font-size: 11px;
-}
-
-.calendar-pill svg {
-  width: 14px;
-  height: 14px;
-  fill: currentColor;
-  flex: 0 0 auto;
 }
 
 .chart-card {
