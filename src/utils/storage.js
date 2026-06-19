@@ -1,0 +1,25 @@
+const TOKEN_KEY = 'skypro_wallet_token';
+const USER_KEY = 'skypro_wallet_user';
+
+export const saveToken = (token) => localStorage.setItem(TOKEN_KEY, token);
+export const getToken = () => localStorage.getItem(TOKEN_KEY);
+export const removeToken = () => localStorage.removeItem(TOKEN_KEY);
+
+export const saveUser = (user) => localStorage.setItem(USER_KEY, JSON.stringify(user));
+
+export const getUser = () => {
+  const raw = localStorage.getItem(USER_KEY);
+
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(raw);
+  } catch {
+    removeUser();
+    return null;
+  }
+};
+
+export const removeUser = () => localStorage.removeItem(USER_KEY);
