@@ -1,11 +1,6 @@
 import { useState } from 'react';
-import { CATEGORY_OPTIONS } from '../data/categoryOptions';
+import { getCategoryOption } from '../data/categoryOptions';
 import { formatCurrency, formatDate } from '../utils/formatters';
-
-const categoryLabels = CATEGORY_OPTIONS.reduce((acc, option) => {
-  acc[option.value] = option.label;
-  return acc;
-}, {});
 
 function ExpenseTable({ transactions, onDelete }) {
   const [deletingId, setDeletingId] = useState(null);
@@ -44,7 +39,7 @@ function ExpenseTable({ transactions, onDelete }) {
               transactions.map((item) => (
                 <tr key={item.id}>
                   <td>{item.description}</td>
-                  <td>{categoryLabels[item.category] ?? item.category}</td>
+                  <td>{getCategoryOption(item.category).label}</td>
                   <td>{formatDate(item.date)}</td>
                   <td>{formatCurrency(item.sum)}</td>
                   <td>

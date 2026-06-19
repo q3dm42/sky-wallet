@@ -1,4 +1,5 @@
 const pad = (value) => String(value).padStart(2, '0');
+const normalizeCategory = (category) => (category === 'others' ? 'other' : category);
 
 export const toApiDate = (value) => {
   const date = value instanceof Date ? value : new Date(value);
@@ -25,7 +26,7 @@ export const normalizeTransaction = (item) => ({
   id: item._id ?? item.id,
   userId: item.userId,
   description: item.description ?? '',
-  category: item.category ?? 'others',
+  category: normalizeCategory(item.category ?? 'other'),
   date: item.date,
   sum: Number(item.sum ?? item.amount ?? 0),
   amount: Number(item.sum ?? item.amount ?? 0),
