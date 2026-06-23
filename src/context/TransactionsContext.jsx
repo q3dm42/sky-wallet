@@ -83,12 +83,10 @@ export function TransactionsProvider({ children }) {
       transactions,
       isLoading,
       error,
-      setError,
-      refreshTransactions,
       createTransaction,
       removeTransaction,
     }),
-    [transactions, isLoading, error, refreshTransactions, createTransaction, removeTransaction]
+    [transactions, isLoading, error, createTransaction, removeTransaction]
   );
 
   return <TransactionsContext.Provider value={value}>{children}</TransactionsContext.Provider>;

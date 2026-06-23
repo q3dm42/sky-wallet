@@ -1,4 +1,4 @@
-import { getToken, removeToken } from '../utils/storage';
+import { getToken, removeToken, removeUser } from '../utils/storage';
 
 const DEFAULT_API_URL = 'https://wedev-api.sky.pro/api';
 const baseURL = (import.meta.env.VITE_API_URL || DEFAULT_API_URL).replace(/\/$/, '');
@@ -70,6 +70,7 @@ const request = async (method, path, { params, data, headers: customHeaders } = 
 
   if (response.status === 401) {
     removeToken();
+    removeUser();
   }
 
   if (!response.ok) {
@@ -91,13 +92,6 @@ export const api = {
 
   post: (path, data, config = {}) =>
     request('POST', path, {
-      params: config.params,
-      data,
-      headers: config.headers,
-    }),
-
-  patch: (path, data, config = {}) =>
-    request('PATCH', path, {
       params: config.params,
       data,
       headers: config.headers,

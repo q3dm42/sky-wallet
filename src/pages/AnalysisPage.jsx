@@ -6,14 +6,8 @@ import LoaderBlock from '../components/LoaderBlock';
 import PeriodCalendar from '../components/PeriodCalendar';
 import { useTransactions } from '../context/TransactionsContext';
 import { CATEGORY_OPTIONS } from '../data/categoryOptions';
+import { toInputDate } from '../api/helpers';
 import { formatDateRange } from '../utils/formatters';
-
-function toInputDate(date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
 
 function AnalysisPage() {
   const today = toInputDate(new Date());

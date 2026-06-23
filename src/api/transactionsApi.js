@@ -22,7 +22,7 @@ const buildQueryParams = ({ sortBy, filterBy } = {}) => {
 const createTransactionPayload = (transaction) => ({
   description: String(transaction.description || '').trim(),
   sum: Number(transaction.sum ?? transaction.amount),
-  category: transaction.category,
+  category: transaction.category === 'others' ? 'other' : transaction.category,
   date: toApiDate(transaction.date),
 });
 
